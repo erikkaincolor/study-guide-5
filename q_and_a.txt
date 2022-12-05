@@ -1,0 +1,242 @@
+
+SQLAlchemy
+
+    What is an ORM?
+object relationship map. creates 'virtual object db' w/o 
+having to know HOW objects relate....a linking mechanism
+
+adam:
+bridge between objects in .py and tables in db....orm will produce sql for...handles bridging 
+so we dont have to do hand queries
+
+---------------------------------------------------
+---------------------------------------------------
+---------------------------------------------------
+    How to define and create new tables in SQLAlchemy:
+create:
+CREATE TABLE <tablename>(
+    id_var_name SERIAL PRIMARY KEY,<----'serial' type autogenrates a sequential int for use a PK
+    variable_name VARCHAR(30) NOT NULL,
+    variable_name INTEGER,
+    variable_name TEXT NOT NULL,
+    variable_name FLOAT NOT NULL,
+    variable_name BOOLEAN DEFAULT True NOT NULL,
+    variable_name DATE,
+    REFERENCES related-table <----the related-table will have this tables pk as its fk
+);
+
+//notice the parentthesis and the commas and the semicolon placement!!
+'insert into this table these columns'
+---------------------------------------------------
+---------------------------------------------------
+---------------------------------------------------
+defined on a single line i think:
+ INSERT INTO <table_name> VALUES ('col1', 'col2', 'col3', 'col4');
+
+***i could do both (create and define) but its cleaner if done seperately
+ex:
+INSERT INTO employees (fname, lname, dept_code, salary)
+  VALUES ('Liz', 'Lemon', 'legal', 90000);
+
+
+ALSO GOOD TO NOTE...We can still pass NULL stuff in explicitly:
+
+INSERT INTO employees (fname, lname, dept_code)
+  VALUES ('Nadine', 'Nelson', NULL);
+
+
+---------------------------------------------------
+---------------------------------------------------
+---------------------------------------------------
+
+     What is NULL?
+NULL = none
+
+Answers the question of what required. In the first hw 
+(sql-quiz) one of the problems asked me to query an 'orders' 
+table that illustrated the the difference between online orders 
+and in-person orders was based on the 'customer_id' field being 
+NULL or not...if it was NULL then it come from online!
+
+ALL fields are nullable unless declared NOT NULL.
+Best practice: Make everything NOT NULL where possible!
+
+
+
+---------------------------------------------------
+---------------------------------------------------
+---------------------------------------------------
+    What is a PK? FK?
+primary key is a unique variable that identies each record individually.
+
+one mans pk, is another mans FK
+
+foreign key is another tables primary key, foreign to us, primary to them
+
+
+---------------------------------------------------
+---------------------------------------------------
+---------------------------------------------------
+    How do you UPDATE, and DELETE?
+update='update this table by setting var_name = XYZ where condition for rows'
+
+ex:
+UPDATE table_name SET col1 = 'info' WHERE col1 = 'xyz'; 
+^^^^where is ur filter by group col(cols with multiple records containting its data, i.e. color = 'green')
+
+DELETE FROM employees WHERE salary > 100000;
+---------------------------------------------------
+---------------------------------------------------
+---------------------------------------------------
+
+    What is referential integrity?
+cant refer to fk in table that doesnt exist...
+u dont want data relying on data that isnt there
+
+ex:
+INSERT INTO departments VALUES ('fin', 'Finance', '555-9876'); -- ok
+
+UPDATE employees SET dept_code = 'mktg';  -- ok
+
+UPDATE employees SET dept_code = 'hr';    -- error!
+
+DELETE FROM departments;   -- error!
+
+^^^^
+---------------------------------------------------
+---------------------------------------------------
+---------------------------------------------------
+    What is a transaction?
+everything u wrap in a singular transaction either succeeds or fails...
+you dont want 1 thing succeeding and 1 thing failing
+
+syntax:
+BEGIN;
+
+/* any code u want to do that sql-y*/
+INSERT INTO checking (acct, amt) VALUES ('ABC123', -100);
+INSERT INTO savings  (acct, amt) VALUES ('ABC123',  100);
+
+
+COMMIT;
+
+
+---------------------------------------------------
+---------------------------------------------------
+---------------------------------------------------
+What is safety?
+aht aht go back!
+
+BEGIN;
+/*maybe a deletion*/
+ROLLBACK;
+
+
+What is an isolation?
+one columns cant see inside another....ex: banking...one transaction cant see inside another
+
+
+COMMIT? ROLLBACK?
+commit-take me back
+rollback-go back!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    SQLAlchemy methods to know
+
+        .filter()
+
+        .filter_by()
+
+        .all(), .one(), .first()
+
+    JOINs in SQLAlchemy
+joins are unifying related data in single queries.
+
+    Relationships in SQLAlchemy
+
+        What is the purpose of a backref in SQLAlchemy?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Data Modeling
+-we dont want redundant data...whats optimal way to structure db schema?
+
+    Types of relationships
+
+        One-to-many
+
+        One-to-one
+
+        Many-to-many
+
+    Association tables, middle tables
+
+    How to draw data model diagrams
+
+    What is data normalization?
+
+    What is referential integrity?
+
